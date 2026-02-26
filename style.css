@@ -1,0 +1,220 @@
+:root {
+  --gray-bg:      #e4e4e4;   /* gris del fondo de la captura */
+  --blue:         #1565C0;
+  --blue-light:   #1E88E5;
+  --white:        #FFFFFF;
+  --text-dark:    #1A1A2E;
+  --text-muted:   #546E7A;
+  --font-display: 'Rajdhani', sans-serif;
+  --font-body:    'Nunito', sans-serif;
+}
+
+.logo-img {
+  width: 250px;
+  height: 300px;
+  object-fit: contain;
+}
+
+/* ===== RESET ===== */
+*, *::before, *::after {
+  margin: 0; padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%; height: 100%;
+  background: #9E9E9E; /* gris fuera del teléfono (solo en desktop) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+}
+
+/* ===== CONTENEDOR TIPO TELÉFONO ===== */
+/* En celular real ocupa todo. En desktop se ve como mockup */
+.phone-screen {
+  width: 100%;
+  max-width: 390px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  background: var(--gray-bg);
+
+  /* Sombra tipo teléfono cuando se ve en desktop */
+  box-shadow: 0 24px 80px rgba(0,0,0,0.35);
+}
+
+/* =============================================
+   ZONA SUPERIOR (fondo gris + logo + nombre)
+============================================= */
+.top-section {
+  flex: 1;
+  background: var(--gray-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3.5rem 2rem 2rem;
+  gap: 0;
+}
+
+/* ===== LOGO CIRCULAR ===== */
+.logo-wrap {
+  position: relative;
+  margin-bottom: 1.6rem;
+  animation: logoEntrada 0.7s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+@keyframes logoEntrada {
+  from { transform: scale(0.6); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.logo-circle {
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  /* Borde sutil gris claro como en el diseño */
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.10),
+    0 2px 6px rgba(0, 0, 0, 0.20);
+}
+
+.bus-svg {
+  width: 155px;
+  height: auto;
+  margin-top: 10px; /* centra visualmente el bus dentro del círculo */
+}
+
+/* Pin de ubicación – esquina superior derecha del círculo */
+.pin-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.word-digital {
+  font-family: var(--font-display);
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: 4px;
+  /* Sombra de texto que aparece en el diseño */
+  text-shadow: 2px 2px 0px rgba(255,255,255,0.8), -1px -1px 0 rgba(0,0,0,0.05);
+}
+
+.word-move {
+  font-family: var(--font-display);
+  font-size: 3.2rem;
+  font-weight: 700;
+  /* Efecto degradado azul oscuro a azul claro como en la imagen */
+  background: linear-gradient(135deg, #0D47A1 30%, #1E88E5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 4px;
+}
+
+/* ===== TAGLINE ===== */
+.tagline {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  text-align: center;
+  animation: textoEntrada 0.6s ease 0.35s both;
+}
+
+.bottom-section {
+  padding: 1.5rem 1.5rem 2.5rem;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+/* ===== TARJETA BLANCA ===== */
+.card {
+  background: #b4b4b4;
+  border-radius: 18px;
+  width: 100%;
+  max-width: 100%;
+  padding: 2.5rem 1.5rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  /* Sombra suave igual al diseño */
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.20),
+    0 2px 6px rgba(0, 0, 10, 0.40);
+  animation: cardEntrada 0.5s ease 0.4s both;
+}
+
+@keyframes cardEntrada {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.card-text {
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  text-align: center;
+  line-height: 1.65;
+}
+
+.card-text strong {
+  color: var(--blue);
+  font-weight: 700;
+}
+
+/* ===== BOTÓN CONTINUAR ===== */
+.btn-continuar {
+  width: 100%;
+  background: linear-gradient(135deg, #5C6BC0, #7986CB); /* violeta-azul como en el diseño */
+  color: var(--white);
+  border: none;
+  border-radius: 50px;
+  padding: 0.85rem 1rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 16px rgba(92,107,192,0.4);
+}
+
+.btn-continuar:hover {
+  background: linear-gradient(135deg, #3F51B5, #5C6BC0);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(92,107,192,0.45);
+}
+
+.btn-continuar:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 8px rgba(92,107,192,0.3);
+}
+
+/* =============================================
+   RESPONSIVE – En celular real ocupa todo
+============================================= */
+@media (max-width: 430px) {
+  body {
+    background: var(--gray-bg);
+    align-items: flex-start;
+  }
+  .phone-screen {
+    max-width: 100%;
+    min-height: 100dvh; /* dynamic viewport height */
+    box-shadow: none;
+  }
+}

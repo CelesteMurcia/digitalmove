@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#B0BEC5">
+  <title>Digital Move</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@700&family=Nunito:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="phone-screen">
+
+    <!-- Zona gris superior -->
+    <div class="top-section">
+
+      <!-- Logo circular -->
+      <div class="logo-wrap">
+        <div class="logo-circle">
+          <img src="imagenes/logo_inicial.png" alt="DigitalMove" class="logo-img">
+        </div>
+      </div>
+
+      <!-- Tagline -->
+      <p class="tagline">VIAJA SEGURO, LLEGA SIN APURO</p>
+
+    </div>
+
+    <!-- Zona inferior con tarjeta -->
+    <div class="bottom-section">
+      <div class="card">
+        <p class="card-text">
+          Pulsa <strong>"Continuar"</strong> para aceptar los
+          términos y permitir tu ubicación.
+        </p>
+
+        <!--
+          onclick llama a pedirUbicacion() que está en geolocalizacion.js
+          ESA función es la que muestra el popup de permiso GPS
+          y luego redirige a pagina1.html
+        -->
+        <button class="btn-continuar" onclick="pedirUbicacion()">
+          Continuar
+        </button>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Conectar geolocalizacion.js al final del body -->
+  <script src="geolocalizacion.js"></script>
+
+</body>
+</html>
