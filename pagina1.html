@@ -21,6 +21,20 @@
     </div>
   </header>
 
+  <!-- PANEL DE NOTIFICACIONES ← agrega esto aquí -->
+<div class="notif-overlay" id="notif-overlay" onclick="cerrarNotificaciones()"></div>
+
+<div class="notif-panel" id="notif-panel">
+  <div class="notif-header">
+    <h3>🔔 Notificaciones</h3>
+    <button onclick="cerrarNotificaciones()">✕</button>
+  </div>
+  <div class="notif-vacio">
+    <span>🔔</span>
+    <p>No tienes notificaciones nuevas</p>
+  </div>
+</div>
+
   <!-- MAPA -->
   <main class="map-container">
     <div id="map"></div>
@@ -32,26 +46,27 @@
 
     <div class="card">
       <strong>Unidad 1</strong>
-      <p>Próxima parada: 15 min</p>
-      <p>Parada: Casino</p>
       <p>Personas abordo: 28/50</p>
       <div class="progress"><div style="width:50%"></div></div>
+      <p>Próxima parada: 15 min</p>
+      <p>Parada: Casino</p>
     </div>
 
     <div class="card">
       <strong>Unidad 2</strong>
-      <p>Próxima parada: 10 min</p>
-      <p>Parada: Parque Silva</p>
       <p>Personas abordo: 35/50</p>
       <div class="progress"><div style="width:70%"></div></div>
+      <p>Próxima parada: 10 min</p>
+      <p>Parada: Parque Silva</p>
     </div>
 
     <div class="card">
       <strong>Unidad 3</strong>
-      <p>Próxima parada: 15 min</p>
-      <p>Parada: Centro comercial</p>
       <p>Personas abordo: 15/50</p>
       <div class="progress"><div style="width:30%"></div></div>
+      <p>Próxima parada: 15 min</p>
+      <p>Parada: Centro comercial</p>
+
     </div>
 
     <!-- HORARIO DE SERVICIO -->
@@ -258,8 +273,22 @@
     }
 
     setInterval(moverBus, 1500);
+
+    function abrirNotificaciones() {
+  document.getElementById('notif-panel').classList.add('activo');
+  document.getElementById('notif-overlay').classList.add('activo');
+}
+
+function cerrarNotificaciones() {
+  document.getElementById('notif-panel').classList.remove('activo');
+  document.getElementById('notif-overlay').classList.remove('activo');
+}
   </script>
 
 </body>
 </html>
+
+</body>
+</html>
+
 
