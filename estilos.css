@@ -23,7 +23,20 @@ html, body {
   top: 0;
   width: 100%;
   z-index: 1000;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.icons i {
+  font-size: 1.5rem;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  padding: 0.4rem;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+.icons i:active {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* ===== PANEL NOTIFICACIONES ===== */
@@ -140,32 +153,73 @@ html, body {
   font-size: 16px;
 }
 
-/* CARDS */
+/* ===== CARDS DE UNIDADES ===== */
 .card {
-  background: #e0e0e0;
-  border-radius: 12px;
-  padding: 12px;
+  background: #e8e8e8;
+  border-radius: 14px;
+  padding: 10px 12px;
   margin-bottom: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.card p {
-  font-size: 13px;
-  margin-top: 4px;
+/* Fila superior: imagen del bus + nombre */
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
 }
 
-/* PROGRESS BAR */
+.card-bus-img {
+  width: 80px;
+  height: auto;
+  object-fit: contain;
+}
+
+.card-nombre {
+  font-weight: 700;
+  font-size: 15px;
+  color: #1A1A2E;
+}
+
+/* Capacidad centrada */
+.card-capacidad {
+  text-align: center;
+  font-size: 12px;
+  color: #555;
+  margin: 4px 0 6px;
+}
+
+/* Barra de progreso */
 .progress {
   height: 6px;
-  background: #ddd;
+  background: #ccc;
   border-radius: 5px;
-  margin-top: 8px;
+  margin-bottom: 2px;
 }
 
 .progress div {
   height: 100%;
   background: #4b88ff;
   border-radius: 5px;
+}
+
+/* Info de parada */
+.card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.card-parada-tiempo,
+.card-parada-nombre {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #333;
+  margin: 0;
 }
 
 /* HORARIO */
@@ -247,9 +301,16 @@ html, body {
     color: #333;
 }
 
+/* Íconos redes sociales en horizontal */
+.footer-icons {
+  display: flex;          
+  justify-content: center; 
+  margin-top: 10px;
+}
+
 .app-footer a {
-  display: block;
-  color: #333;
+  display: flex;
+  color: #080808;
   text-decoration: none;
   margin: 8px 20px;
 }
@@ -257,3 +318,4 @@ html, body {
 .app-footer a:hover {
   text-decoration: underline;
 }
+
