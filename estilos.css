@@ -26,6 +26,78 @@ html, body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
+/* ===== PANEL NOTIFICACIONES ===== */
+.notif-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 900;
+}
+
+.notif-overlay.activo {
+  display: block;
+}
+
+.notif-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transform: translateY(-100%);
+  transition: transform 0.35s ease;
+}
+
+.notif-panel.activo {
+  transform: translateY(0);
+}
+
+.notif-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 1rem 0.8rem;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.notif-header h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1565C0;
+}
+
+.notif-header button {
+  background: #F5F5F5;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.notif-vacio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.5rem 1rem;
+  gap: 0.8rem;
+  color: #90A4AE;
+}
+
+.notif-vacio span {
+  font-size: 3rem;
+}
+
+.notif-vacio p {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
 .logo {
   height: 70px;
 }
