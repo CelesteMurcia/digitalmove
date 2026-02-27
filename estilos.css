@@ -27,7 +27,7 @@ html, body {
 }
 
 .icons i {
-  font-size: 1.5rem;
+  font-size: 1.9rem;
   color: rgb(0, 0, 0);
   cursor: pointer;
   padding: 0.4rem;
@@ -77,10 +77,18 @@ html, body {
   border-bottom: 1px solid #E0E0E0;
 }
 
+.fa-regular {
+  color: #1523c0;
+}
+
 .notif-header h3 {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #1565C0;
+  color: #121212;
+}
+
+.fa-solid {
+  color: #dc6151;
 }
 
 .notif-header button {
@@ -120,6 +128,146 @@ html, body {
   margin-left: 22px;
 }
 
+/* ===== CHATBOT ===== */
+.chat-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -8px 30px rgba(0,0,0,0.2);
+  z-index: 1001;
+  transform: translateY(100%);
+  transition: transform 0.35s ease;
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh;
+}
+
+.chat-panel.activo {
+  transform: translateY(0);
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 180px;
+  max-height: 340px;
+}
+
+.chat-burbuja {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.bot-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #346aa8ea, #42a5f5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.bot-avatar i {
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.burbuja-texto {
+  background: #f0f4ff;
+  border-radius: 0 14px 14px 14px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #1A1A2E;
+  line-height: 1.5;
+  max-width: 85%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.burbuja-texto ul {
+  margin: 8px 0 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.chat-burbuja.usuario {
+  flex-direction: row-reverse;
+}
+
+.chat-burbuja.usuario .burbuja-texto {
+  background: linear-gradient(135deg, #1565C0, #1976D2);
+  color: #fff;
+  border-radius: 14px 0 14px 14px;
+}
+
+.chat-opciones {
+  padding: 12px 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.chat-btn {
+  background: #f5f7ff;
+  border: 1.5px solid #dde3f5;
+  border-radius: 12px;
+  padding: 11px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1565C0;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.2s ease;
+}
+
+.chat-btn:active {
+  background: #1565C0;
+  color: #fff;
+  transform: scale(0.98);
+}
+
+.chat-btn i {
+  font-size: 1rem;
+  width: 18px;
+  text-align: center;
+}
+
+.chat-volver {
+  background: #fff3e0 !important;
+  border-color: #ffcc80 !important;
+  color: #e65100 !important;
+}
+
+/* Íconos dentro de burbujas */
+.burbuja-texto ul li i {
+  width: 16px;
+  text-align: center;
+  color: #1565C0;
+  margin-right: 4px;
+}
+
+.burbuja-texto ul li {
+  list-style: none;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 /* MAPA */
 #map {
   position: absolute;
@@ -131,9 +279,61 @@ html, body {
 .map-container {
   position: fixed;
   top: 0px;        /* debajo del header */
-  bottom: 100px;    /* espacio para las tarjetas */
+  bottom: 0;    /* espacio para las tarjetas */
   width: 100%;
 }
+
+.marcador-origen  { background:#E53935; width:14px; height:14px; border-radius:50%; border:3px solid white; box-shadow:0 0 0 4px rgba(229,57,53,0.4); }
+.marcador-destino { background:#43A047; width:14px; height:14px; border-radius:50%; border:3px solid white; box-shadow:0 0 0 4px rgba(67,160,71,0.4); }
+.marcador-parada  { background:#064d9d; width:10px; height:10px; border-radius:50%; border:2px solid white; box-shadow:0 0 0 3px rgba(21,101,192,0.35); }
+
+/* BARRA */
+.nav-bar {
+  width: 100%;
+  background: #ffffff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 12px 0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 16px;
+}
+
+/* ITEM */
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #555;
+  cursor: pointer;
+}
+
+/* CÍRCULO DEL ICONO — fondo neutro para todos */
+.nav-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eeeeee; /* mismo fondo para todos */
+}
+
+/* ICONO */
+.nav-icon i {
+  font-size: 16px;
+  color: #fa0101;
+}
+
+/* COLORES EN EL ÍCONO */
+.red i   { color: #E53935; }
+.green i { color: #43A047; }
+.blue i  { color: #1565C0; }
+.gray i  { color: #757575; }
+.dark i  { color: #424242; }
 
 /* PANEL INFERIOR */
 .bottom-sheet {
@@ -144,9 +344,9 @@ html, body {
   border-radius: 20px 20px 0 0;
   padding: 16px;
   box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
-  height: 45vh;        /* más alto */
-  overflow-y: auto;   /* 👈 CLAVE */
-}
+  height: 45vh;        
+  overflow-y: auto;   
+} 
 
 .bottom-sheet h3 {
   margin-bottom: 12px;
@@ -156,10 +356,10 @@ html, body {
 /* ===== CARDS DE UNIDADES ===== */
 .card {
   background: #e8e8e8;
-  border-radius: 14px;
-  padding: 10px 12px;
-  margin-bottom: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 18px;
+  padding: 10px 8px;
+  margin-bottom: 14px;
+  box-shadow: 0 6px 8px rgba(0,0,0,0.3);
 }
 
 /* Fila superior: imagen del bus + nombre */
@@ -167,18 +367,22 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .card-bus-img {
-  width: 80px;
+  width: 95px;
   height: auto;
   object-fit: contain;
+  transform: scale(1.2);
 }
 
 .card-nombre {
-  font-weight: 700;
-  font-size: 15px;
+  background: #CFCFCF;      
+  padding: 6px 50px;        
+  border-radius: 12px;        
+  font-weight: 600;
+  font-size: 13px;
   color: #1A1A2E;
 }
 
@@ -187,21 +391,22 @@ html, body {
   text-align: center;
   font-size: 12px;
   color: #555;
-  margin: 4px 0 6px;
+  margin: 4px 0 14px;
 }
 
 /* Barra de progreso */
 .progress {
-  height: 6px;
-  background: #ccc;
-  border-radius: 5px;
-  margin-bottom: 2px;
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 10px;
+  margin: 6px 0;
+  overflow: hidden;
 }
 
 .progress div {
   height: 100%;
-  background: #4b88ff;
-  border-radius: 5px;
+  background: linear-gradient(90deg, #4b88ff, #1565C0);
+  border-radius: 10px;
 }
 
 /* Info de parada */
@@ -217,16 +422,24 @@ html, body {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
-  color: #333;
+  font-size: 13px;
+  color: #454343;
   margin: 0;
 }
 
+.card-parada-tiempo i{
+  font-size: 14px;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  transition: 0.2s ease;
+}
 /* HORARIO */
-.schedule h3,
-.features h3 {
-  font-size: 15px;
-  margin: 14px 0 8px;
+.schedule h3 {
+  font-size: 14px;
+  margin: 14px 0 15px;
+  color: #1A1A2E;
 }
 
 .schedule-box {
@@ -242,80 +455,197 @@ html, body {
   flex-direction: column;
   gap: 10px;
   font-size: 13px;
+  flex: 1;
 }
 
 .schedule-col strong {
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1A1A2E;
+  margin-bottom: 2px;
 }
 
-.schedule-col label {
+/* Cada fila de horario */
+.horario-item {
   display: flex;
   align-items: center;
   gap: 8px;
-  cursor: pointer;
+  font-size: 12px;
+  color: #333;
 }
 
+/* Círculo decorativo — igual al de la imagen */
+.circulo {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #555;
+  background: transparent;
+  flex-shrink: 0;
+}
+
+/* Línea divisora vertical */
 .divider {
   width: 1px;
   background: #bdbdbd;
-  margin: 0 10px;
-}
-
-.icons-caoracteristicas img {
-  height: 20px;
-  margin-left: 12px;
+  margin: 0 14px;
 }
 
 /* CARACTERÍSTICAS */
+.features h3 {
+  font-size: 14px;        
+  margin: 14px 0 16px;
+  color: #1A1A2E;
+}
+
 .features-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  margin-top: 2px;
+  grid-template-columns: 1fr 1fr;  
+  margin-top: 4px;
+  gap: 20px 12px;
 }
 
-.feature {
+.feature-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 13px;
+  gap: 7px;
+  font-size: 10px;       
+  color: #333;
 }
 
-/* FOOTER */
-.app-footer {
-  background: #bdbdbd;
-  margin-top: 20px;
-  border-radius: 0px;
+.feature-item i {
+  font-size: 1rem;
+  color: #1A1A2E;
+  width: 18px;
   text-align: center;
-  font-size: 13px;
-  padding: 1.5rem 1rem;
+  flex-shrink: 0;
+}
+
+.feature-item span {
+  font-size: 11px;
+  color: #333;
+}
+
+/* ===== FOOTER ===== */
+.app-footer {
+  background: #b0b0b0;
+  margin-top: 20px;
+  margin-left: -16px;
+  margin-right: -16px;
+  margin-bottom: -16px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  font-size: 12px;
+}
+
+/* Logo y slogan */
+.footer-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -0.2rem;
 }
 
 .footer-logo {
-  width: 120px;
-  margin-bottom: 0.1px;
+  width: 110px;
+  margin-bottom: 0.4rem;
 }
 
-.app-footer p {
-    margin: 15px 0;
-    color: #333;
+.footer-slogan {
+  font-style: italic;
+  color: #444;
+  font-size: 0.82rem;
+  margin: 0;
 }
 
-/* Íconos redes sociales en horizontal */
-.footer-icons {
-  display: flex;          
-  justify-content: center; 
-  margin-top: 10px;
+/* Separador */
+.footer-divider {
+  height: 1px;
+  background: rgba(0,0,0,0.15);
+  margin: 1rem 0;
 }
 
-.app-footer a {
+/* Links de políticas */
+.footer-links {
   display: flex;
-  color: #080808;
-  text-decoration: none;
-  margin: 8px 20px;
+  flex-direction: column;
+  gap: 0.6rem;
 }
 
-.app-footer a:hover {
-  text-decoration: underline;
+.footer-links a {
+  color: #222;
+  text-decoration: none;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: color 0.2s;
+}
+
+/* Contacto */
+.footer-contacto {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  color: #222;
+}
+
+.footer-titulo-seccion {
+  font-weight: 700;
+  font-size: 0.7rem;
+  color: #1A1A2E;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+
+/* Redes sociales */
+.footer-redes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
+.footer-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.footer-icons a {
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: transform 0.2s, color 0.2s;
+  display: flex;
+}
+
+.footer-icons a:hover {
+  transform: translateY(-3px);
+}
+
+.footer-icons .fa-facebook  { color: #222; }
+.footer-icons .fa-instagram { color: #222; }
+.footer-icons .fa-whatsapp  { color: #222; }
+
+/* Copyright */
+.footer-copyright {
+  margin-top: 0.5rem;
+}
+
+.footer-copyright p {
+  color: #555;
+  font-size: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin: 0;
 }
 
