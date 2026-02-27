@@ -138,7 +138,7 @@
     <h3>Rutas Disponibles</h3>
 
     <!-- CARDS DE UNIDADES -->
-    <div class="card">
+    <div class="card" onclick="verUnidad(1)">
       <div class="card-top">
         <img src="imagenes/microbusito.png" class="card-bus-img">
         <span class="card-nombre">Unidad 1</span>
@@ -159,7 +159,7 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" onclick="verUnidad(2)">
       <div class="card-top">
         <img src="imagenes/microbusito_negro.png" class="card-bus-img">
         <span class="card-nombre">Unidad 2</span>
@@ -180,7 +180,7 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" onclick="verUnidad(3)">
       <div class="card-top">
         <img src="imagenes/microbusito.png" class="card-bus-img">
         <span class="card-nombre">Unidad 3</span>
@@ -555,9 +555,19 @@ L.marker([25.777747, -100.183938], { icon: iParada }).addTo(map).bindPopup('Para
       document.getElementById('avisos-panel').classList.remove('activo');
       document.getElementById('avisos-overlay').classList.remove('activo');
     }
+
+        // VER UNIDAD EN MAPA
+    function verUnidad(num) { 
+      let pos;
+        if (num === 1) pos = rutaBus[paso];
+          if (num === 2) pos = rutaBus2[paso2];
+            if (num === 3) pos = rutaBus3[paso3];
+      map.flyTo(pos, 17, { duration: 1.2 });
+    }
   </script>
 
 </body>
 </html>
+
 
 
