@@ -88,7 +88,7 @@ html, body {
 }
 
 .fa-solid {
-  color: #dc6151;
+  color: #09295d;
 }
 
 .notif-header button {
@@ -249,7 +249,7 @@ html, body {
 .chat-volver {
   background: #fff3e0 !important;
   border-color: #ffcc80 !important;
-  color: #e65100 !important;
+  color: #4465da !important;
 }
 
 /* Íconos dentro de burbujas */
@@ -528,7 +528,7 @@ html, body {
 
 /* ===== FOOTER ===== */
 .app-footer {
-  background: #b0b0b0;
+  background: #cecece;
   margin-top: 20px;
   margin-left: -16px;
   margin-right: -16px;
@@ -648,4 +648,6 @@ html, body {
   gap: 0.4rem;
   margin: 0;
 }
+
+
 
