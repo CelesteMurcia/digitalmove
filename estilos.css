@@ -476,11 +476,10 @@ html, body {
 
 /* Círculo decorativo — igual al de la imagen */
 .circulo {
-  width: 14px;
-  height: 14px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  border: 2px solid #555;
-  background: transparent;
+  background: #1565C0;
   flex-shrink: 0;
 }
 
@@ -648,6 +647,7 @@ html, body {
   gap: 0.4rem;
   margin: 0;
 }
+
 
 
 
