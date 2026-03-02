@@ -479,7 +479,7 @@ html, body {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #1565C0;
+  background: #454545;
   flex-shrink: 0;
 }
 
@@ -647,6 +647,7 @@ html, body {
   gap: 0.4rem;
   margin: 0;
 }
+
 
 
 
