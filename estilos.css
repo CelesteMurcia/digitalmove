@@ -474,7 +474,7 @@ html, body {
   color: #333;
 }
 
-/* Círculo decorativo — igual al de la imagen */
+/* Círculo decorativo*/
 .circulo {
   width: 8px;
   height: 8px;
@@ -647,6 +647,7 @@ html, body {
   gap: 0.4rem;
   margin: 0;
 }
+
 
 
 
