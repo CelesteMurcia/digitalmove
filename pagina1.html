@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Digital Move</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/mapa.css">  
+  <link rel="stylesheet" href="assets/css/cards.css">
+  <link rel="stylesheet" href="assets/css/chatbot.css">
+  <link rel="stylesheet" href="assets/css/notificaciones.css">      
+</head>
+
+<body>
+
+  <header class="app-header">
+    <img src="imagenes/logo_header.png" class="logo">
+    <div class="icons">
+      <i class="fa-regular fa-bell"        onclick="abrirNotificaciones()"></i>
+      <i class="fa-solid fa-circle-info"   onclick="abrirAvisos()"></i>
+      <i class="fa-regular fa-comment-dots" onclick="abrirChat()"></i>
+    </div>
+  </header>
+ 
+ 
+  <!-- ══════════════════════════════════════
+       PANEL DE NOTIFICACIONES
+  ══════════════════════════════════════ -->
+  <div class="notif-overlay" id="notif-overlay" onclick="cerrarNotificaciones()"></div>
+  <div class="notif-panel"   id="notif-panel">
+    <div class="notif-header">
+      <h3><i class="fa-regular fa-bell"></i> Notificaciones</h3>
+      <button onclick="cerrarNotificaciones()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="notif-vacio">
+      <i class="fa-regular fa-bell" style="font-size:3rem; color:#90A4AE;"></i>
+      <p>No tienes notificaciones nuevas</p>
+    </div>
+  </div>
+ 
+ 
+  <!-- ══════════════════════════════════════
+       PANEL DE AVISOS
+  ══════════════════════════════════════ -->
+  <div class="notif-overlay" id="avisos-overlay" onclick="cerrarAvisos()"></div>
+  <div class="notif-panel"   id="avisos-panel">
+    <div class="notif-header">
+      <h3><i class="fa-solid fa-circle-info"></i> Avisos</h3>
+      <button onclick="cerrarAvisos()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="notif-vacio">
+      <i class="fa-solid fa-circle-info" style="font-size:3rem; color:#90A4AE;"></i>
+      <p>No hay avisos por el momento</p>
+    </div>
+  </div>
+ 
+ 
+  <!-- ══════════════════════════════════════
+       CHATBOT
+  ══════════════════════════════════════ -->
+  <div class="notif-overlay" id="chat-overlay" onclick="cerrarChat()"></div>
+  <div class="chat-panel"    id="chat-panel">
+    <div class="notif-header">
+      <h3><i class="fa-regular fa-comment-dots"></i> Asistente Digital Move</h3>
+      <button onclick="cerrarChat()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="chat-messages" id="chat-messages">
+      <div class="chat-burbuja bot">
+        <div class="bot-avatar"><i class="fa-regular fa-comment-dots"></i></div>
+        <div class="burbuja-texto">
+          ¡Hola! Soy el asistente de <strong>Digital Move</strong>.
+          ¿En qué puedo ayudarte?
+        </div>
+      </div>
+    </div>
+    <div class="chat-opciones" id="chat-opciones">
+      <button class="chat-btn" onclick="responder('horario')">
+        <i class="fa-regular fa-clock"></i> Horario de servicio
+      </button>
+      <button class="chat-btn" onclick="responder('caracteristicas')">
+        <i class="fa-solid fa-star"></i> Características de las unidades
+      </button>
+      <button class="chat-btn" onclick="responder('ruta')">
+        <i class="fa-solid fa-route"></i> Ruta del servicio
+      </button>
+      <button class="chat-btn" onclick="responder('capacidad')">
+        <i class="fa-solid fa-users"></i> Capacidad de las unidades
+      </button>
+      <button class="chat-btn" onclick="responder('contacto')">
+        <i class="fa-solid fa-envelope"></i> Contacto
+      </button>
+    </div>
+  </div>
+ 
+ 
+  <!-- ══════════════════════════════════════
+       MAPA
+  ══════════════════════════════════════ -->
+  <main class="map-container">
+    <div id="map"></div>
+  </main>
+ 
+ 
+  <!-- ══════════════════════════════════════
+       PANEL INFERIOR
+  ══════════════════════════════════════ -->
+  <section class="bottom-sheet">
+ 
+    <!-- Barra de navegación rápida -->
+    <nav class="nav-bar">
+      <div class="nav-item" onclick="irA('origen')">
+        <div class="nav-icon red">
+          <i class="fa-solid fa-location-dot"></i>
+        </div>
+        <span>Inicio</span>
+      </div>
+      <div class="nav-item" onclick="irA('destino')">
+        <div class="nav-icon green">
+          <i class="fa-solid fa-location-dot"></i>
+        </div>
+        <span>Destino</span>
+      </div>
+      <div class="nav-item" onclick="irA('paradas')">
+        <div class="nav-icon blue">
+          <i class="fa-solid fa-map-pin"></i>
+        </div>
+        <span>Paradas</span>
+      </div>
+      <div class="nav-item" onclick="irA('unidades')">
+        <div class="nav-icon gray">
+          <i class="fa-solid fa-bus"></i>
+        </div>
+        <span>Unidades</span>
+      </div>
+      <div class="nav-item" onclick="mostrarProximamente('Reporte de accidentes')">
+        <div class="nav-icon dark">
+          <i class="fa-solid fa-car-burst"></i>
+        </div>
+        <span>Accidentes</span>
+      </div>
+    </nav>
+ 
+    <h3>Rutas Disponibles</h3>
+ 
+    <!-- ── CARDS DE UNIDADES ── -->
+    <div class="card" onclick="verUnidad(1)">
+      <div class="card-top">
+        <img src="imagenes/microbusito.png" class="card-bus-img">
+        <span class="card-nombre">Unidad 1</span>
+      </div>
+      <div class="progress">
+        <div style="width:50%"></div>
+      </div>
+      <p class="card-capacidad">28 / 50</p>
+      <div class="card-info">
+        <p class="card-parada-tiempo">
+          <i class="fa-regular fa-clock" style="color:#E53935;"></i>
+          Próxima parada: 15 min.
+        </p>
+        <p class="card-parada-nombre">
+          <i class="fa-solid fa-location-dot" style="color:#1565C0;"></i>
+          Parada: Casino Vivento
+        </p>
+      </div>
+    </div>
+ 
+    <div class="card" onclick="verUnidad(2)">
+      <div class="card-top">
+        <img src="imagenes/microbusito_negro.png" class="card-bus-img">
+        <span class="card-nombre">Unidad 2</span>
+      </div>
+      <div class="progress">
+        <div style="width:70%"></div>
+      </div>
+      <p class="card-capacidad">35 / 50</p>
+      <div class="card-info">
+        <p class="card-parada-tiempo">
+          <i class="fa-regular fa-clock" style="color:#E53935;"></i>
+          Próxima parada: 10 min.
+        </p>
+        <p class="card-parada-nombre">
+          <i class="fa-solid fa-location-dot" style="color:#1565C0;"></i>
+          Parada: Parque Silva
+        </p>
+      </div>
+    </div>
+ 
+    <div class="card" onclick="verUnidad(3)">
+      <div class="card-top">
+        <img src="imagenes/microbusito.png" class="card-bus-img">
+        <span class="card-nombre">Unidad 3</span>
+      </div>
+      <div class="progress">
+        <div style="width:30%"></div>
+      </div>
+      <p class="card-capacidad">15 / 50</p>
+      <div class="card-info">
+        <p class="card-parada-tiempo">
+          <i class="fa-regular fa-clock" style="color:#E53935;"></i>
+          Próxima parada: 15 min.
+        </p>
+        <p class="card-parada-nombre">
+          <i class="fa-solid fa-location-dot" style="color:#1565C0;"></i>
+          Parada: Centro comercial
+        </p>
+      </div>
+    </div>
+ 
+    <!-- ── HORARIO DE SERVICIO ── -->
+    <div class="schedule">
+      <h3>Horario de servicio</h3>
+      <div class="schedule-box">
+        <div class="schedule-col">
+          <strong>Matutino</strong>
+          <div class="horario-item">
+            <span class="circulo"></span> 5:30 a.m
+          </div>
+          <div class="horario-item">
+            <span class="circulo"></span> 7:00 a.m
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="schedule-col">
+          <strong>Vespertino</strong>
+          <div class="horario-item">
+            <span class="circulo"></span> 1:00 p.m
+          </div>
+          <div class="horario-item">
+            <span class="circulo"></span> 2:00 p.m
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- ── CARACTERÍSTICAS ── -->
+    <div class="features">
+      <h3>Características</h3>
+      <div class="features-grid">
+        <div class="feature-item">
+          <i class="fa-solid fa-snowflake"></i>
+          <span>Aire acondicionado</span>
+        </div>
+        <div class="feature-item">
+          <i class="fa-solid fa-wifi"></i>
+          <span>Wi-Fi gratuito</span>
+        </div>
+        <div class="feature-item">
+          <i class="fa-solid fa-satellite-dish"></i>
+          <span>GPS en tiempo real</span>
+        </div>
+        <div class="feature-item">
+          <i class="fa-solid fa-tag"></i>
+          <span>Costo gratuito</span>
+        </div>
+        <div class="feature-item">
+          <i class="fa-solid fa-circle-check"></i>
+          <span>Choferes verificados</span>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- ── FOOTER ── -->
+    <footer class="app-footer">
+      <div class="footer-top">
+        <img src="imagenes/logo_header.png" alt="Digital Move" class="footer-logo">
+      </div>
+      <div class="footer-links">
+        <a href="#">Políticas de privacidad</a>
+        <a href="#">Términos y Condiciones</a>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-contacto">
+        <p class="footer-titulo-seccion">Contáctanos</p>
+        <p>digitalmove_oficial@gmail.com</p>
+      </div>
+      <div class="footer-redes">
+        <p class="footer-titulo-seccion">Síguenos en</p>
+        <div class="footer-icons">
+          <a href="https://www.facebook.com/share/18KEG4t5gC/" target="_blank" title="Facebook">
+            <i class="fa-brands fa-facebook"></i>
+          </a>
+          <a href="https://www.instagram.com/digitalmove_st" target="_blank" title="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <!-- BUG-002 corregido: enlace real de WhatsApp -->
+          <a href="https://wa.me/528130722211" target="_blank" title="WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+          </a>
+        </div>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-copyright">
+        <p><i class="fa-regular fa-copyright"></i> 2025 Digital Move. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+ 
+  </section>
+  
+  <!-- Leaflet JS — siempre primero -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- Scripts propios — después de Leaflet y al final del body -->
+  <script src="assets/js/chatbot.js"></script>
+  <script src="assets/js/mapa.js"></script>
+
+</body>
+ 
+</body>
+</html>
