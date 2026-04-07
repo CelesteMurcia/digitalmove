@@ -11,7 +11,7 @@ try {
 }
 
 
-// ── 2. INICIALIZAR MAPA 
+// ── 2. INICIALIZAR MAPA ──────────────────────────────────────────────────────
 const centroInicial = (gpsActivo && !isNaN(userLat))
   ? [userLat, userLng]
   : [25.78848, -100.16110];
@@ -23,7 +23,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 
-// ── 3. MARCADOR DEL USUARIO 
+// ── 3. MARCADOR DEL USUARIO ──────────────────────────────────────────────────
 if (gpsActivo && !isNaN(userLat)) {
   const iconoUsuario = L.divIcon({
     html: `<div style="
@@ -43,7 +43,7 @@ if (gpsActivo && !isNaN(userLat)) {
 }
 
 
-// ── 4. ICONOS DE MARCADORES 
+// ── 4. ICONOS DE MARCADORES ──────────────────────────────────────────────────
 const iOrigen  = L.divIcon({ html: `<div class="marcador-origen"></div>`,  iconSize: [14,14], iconAnchor: [7,7],  className: '' });
 const iDestino = L.divIcon({ html: `<div class="marcador-destino"></div>`, iconSize: [14,14], iconAnchor: [7,7],  className: '' });
 const iParada  = L.divIcon({ html: `<div class="marcador-parada"></div>`,  iconSize: [10,10], iconAnchor: [5,5],  className: '' });
@@ -61,7 +61,7 @@ L.marker([25.779093, -100.179286], { icon: iParada }).addTo(map).bindPopup('Para
 L.marker([25.777747, -100.183938], { icon: iParada }).addTo(map).bindPopup('Parada 6');
 
 
-// ── 5. ÍCONO DEL BUS 
+// ── 5. ÍCONO DEL BUS ─────────────────────────────────────────────────────────
 const busIcon = L.icon({
   iconUrl: 'imagenes/bus.png',   // ← ruta actualizada
   iconSize: [40, 40],
@@ -69,8 +69,7 @@ const busIcon = L.icon({
 });
 
 
-
-// ── 6. RUTA DEL BUS (una sola definición — BUG-004 corregido) 
+// ── 6. RUTA DEL BUS (una sola definición — BUG-004 corregido) ────────────────
 const rutaBus = [
   [25.78197,-100.18837],[25.78148,-100.18808],[25.78121,-100.18791],
   [25.78071,-100.1876],[25.77993,-100.18711],[25.77962,-100.18692],
@@ -125,11 +124,66 @@ const rutaBus = [
 const rutaBus2 = rutaBus;
 const rutaBus3 = rutaBus;
 
-// Dibujar la ruta en el mapa
+// Dibujar ruta de ida — azul
 L.polyline(rutaBus, { color: '#1565C0', weight: 4, opacity: 0.75 }).addTo(map);
 
+// ── RUTA DE REGRESO (coordenadas reales) ─────────────────────────────────────
+const rutaRegreso = [
+  [25.80021,-100.13564],
+  [25.80018,-100.13597],
+  [25.80005,-100.13627],
+  [25.79994,-100.13656],
+  [25.79977,-100.13697],
+  [25.79946,-100.13775],
+  [25.79934,-100.13797],
+  [25.79928,-100.13802],
+  [25.79908,-100.13799],
+  [25.79908,-100.13798],
+  [25.79753,-100.13761],
+  [25.79754,-100.13763],
+  [25.79203,-100.13629],
+  [25.79136,-100.13842],
+  [25.79137,-100.13836],
+  [25.79040,-100.14142],
+  [25.78976,-100.14356],
+  [25.78933,-100.14506],
+  [25.78932,-100.14507],
+  [25.78882,-100.14678],
+  [25.78881,-100.14681],
+  [25.78827,-100.14858],
+  [25.78827,-100.14857],
+  [25.78773,-100.15041],
+  [25.78774,-100.15039],
+  [25.78713,-100.15238],
+  [25.78713,-100.15239],
+  [25.78650,-100.15447],
+  [25.78651,-100.15445],
+  [25.78536,-100.15819],
+  [25.78537,-100.15816],
+  [25.78385,-100.16311],
+  [25.78377,-100.16339],
+  [25.78206,-100.16879],
+  [25.78205,-100.16877],
+  [25.78054,-100.17394],
+  [25.77929,-100.17842],
+  [25.77851,-100.18102],
+  [25.77776,-100.18351],
+  [25.77722,-100.18529],
+  [25.77720,-100.18538],
+  [25.77705,-100.18533],
+  [25.77706,-100.18537],
+  [25.77664,-100.18613],
+  [25.77662,-100.18615],
+  [25.77860,-100.18738],
+  [25.78096,-100.18885],
+  [25.78150,-100.18916]
+];
 
-// ── 7. ANIMACIÓN DE LOS BUSES 
+// Dibujar ruta de regreso — roja
+L.polyline(rutaRegreso, { color: '#1565C0', weight: 4, opacity: 0.75 }).addTo(map);
+
+
+// ── 7. ANIMACIÓN DE LOS BUSES ────────────────────────────────────────────────
 let paso  = 0;
 let paso2 = Math.floor(rutaBus.length / 3);
 let paso3 = Math.floor(rutaBus.length / 3) * 2;
@@ -157,7 +211,7 @@ setInterval(() => {
 }, 1500);
 
 
-// ── 8. PANELES — NOTIFICACIONES Y AVISOS 
+// ── 8. PANELES — NOTIFICACIONES Y AVISOS ─────────────────────────────────────
 function abrirNotificaciones() {
   document.getElementById('notif-panel').classList.add('activo');
   document.getElementById('notif-overlay').classList.add('activo');
@@ -179,7 +233,7 @@ function cerrarAvisos() {
 }
 
 
-// ── 9. VER UNIDAD EN MAPA 
+// ── 9. VER UNIDAD EN MAPA ────────────────────────────────────────────────────
 function verUnidad(num) {
   let pos;
   if (num === 1) pos = rutaBus[paso];
@@ -189,7 +243,7 @@ function verUnidad(num) {
 }
 
 
-// ── 10. NAVEGACIÓN POR ÍCONOS 
+// ── 10. NAVEGACIÓN POR ÍCONOS ────────────────────────────────────────────────
 function irA(tipo) {
   if (tipo === 'origen') {
     map.flyTo([25.782070, -100.188452], 17, { duration: 1.2 });
@@ -206,7 +260,7 @@ function irA(tipo) {
 }
 
 
-// ── 11. TOAST "PRÓXIMAMENTE" (BUG-008) 
+// ── 11. TOAST "PRÓXIMAMENTE" (BUG-008) ───────────────────────────────────────
 function mostrarProximamente(nombre) {
   const toast = document.createElement('div');
   toast.textContent = `🚧 ${nombre}: próximamente`;
@@ -232,7 +286,7 @@ function mostrarProximamente(nombre) {
     toast.style.opacity = '0';
     setTimeout(() => toast.remove(), 300);
   }, 2500);
-
+}
   // Forzar a Leaflet a recalcular el tamaño del mapa
 setTimeout(() => {
   map.invalidateSize();
