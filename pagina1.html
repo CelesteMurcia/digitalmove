@@ -25,10 +25,6 @@
     </div>
   </header>
  
- 
-  <!-- ══════════════════════════════════════
-       PANEL DE NOTIFICACIONES
-  ══════════════════════════════════════ -->
   <div class="notif-overlay" id="notif-overlay" onclick="cerrarNotificaciones()"></div>
   <div class="notif-panel"   id="notif-panel">
     <div class="notif-header">
@@ -43,10 +39,6 @@
     </div>
   </div>
  
- 
-  <!-- ══════════════════════════════════════
-       PANEL DE AVISOS
-  ══════════════════════════════════════ -->
   <div class="notif-overlay" id="avisos-overlay" onclick="cerrarAvisos()"></div>
   <div class="notif-panel"   id="avisos-panel">
     <div class="notif-header">
@@ -61,10 +53,6 @@
     </div>
   </div>
  
- 
-  <!-- ══════════════════════════════════════
-       CHATBOT
-  ══════════════════════════════════════ -->
   <div class="notif-overlay" id="chat-overlay" onclick="cerrarChat()"></div>
   <div class="chat-panel"    id="chat-panel">
     <div class="notif-header">
@@ -101,21 +89,12 @@
     </div>
   </div>
  
- 
-  <!-- ══════════════════════════════════════
-       MAPA
-  ══════════════════════════════════════ -->
   <main class="map-container">
     <div id="map"></div>
   </main>
- 
- 
-  <!-- ══════════════════════════════════════
-       PANEL INFERIOR
-  ══════════════════════════════════════ -->
+
   <section class="bottom-sheet">
  
-    <!-- Barra de navegación rápida -->
     <nav class="nav-bar">
       <div class="nav-item" onclick="irA('origen')">
         <div class="nav-icon red">
@@ -151,7 +130,6 @@
  
     <h3>Rutas Disponibles</h3>
  
-    <!-- ── CARDS DE UNIDADES ── -->
     <div class="card" onclick="verUnidad(1)">
       <div class="card-top">
         <img src="imagenes/microbusito.png" class="card-bus-img">
@@ -215,7 +193,6 @@
       </div>
     </div>
  
-    <!-- ── HORARIO DE SERVICIO ── -->
     <div class="schedule">
       <h3>Horario de servicio</h3>
       <div class="schedule-box">
@@ -241,7 +218,6 @@
       </div>
     </div>
  
-    <!-- ── CARACTERÍSTICAS ── -->
     <div class="features">
       <h3>Características</h3>
       <div class="features-grid">
@@ -267,8 +243,7 @@
         </div>
       </div>
     </div>
- 
-    <!-- ── FOOTER ── -->
+
     <footer class="app-footer">
       <div class="footer-top">
         <img src="imagenes/logo_header.png" alt="Digital Move" class="footer-logo">
@@ -291,7 +266,7 @@
           <a href="https://www.instagram.com/digitalmove_st" target="_blank" title="Instagram">
             <i class="fa-brands fa-instagram"></i>
           </a>
-          <!-- BUG-002 corregido: enlace real de WhatsApp -->
+
           <a href="https://wa.me/528130722211" target="_blank" title="WhatsApp">
             <i class="fa-brands fa-whatsapp"></i>
           </a>
@@ -305,10 +280,8 @@
  
   </section>
   
-  <!-- Leaflet JS — siempre primero -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-  <!-- Scripts propios — después de Leaflet y al final del body -->
   <script src="assets/js/chatbot.js"></script>
   <script src="assets/js/mapa.js"></script>
 
