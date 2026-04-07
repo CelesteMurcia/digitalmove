@@ -180,7 +180,7 @@ const rutaRegreso = [
 ];
 
 // Dibujar ruta de regreso — roja
-L.polyline(rutaRegreso, { color: '#1565C0', weight: 4, opacity: 0.75 }).addTo(map);
+L.polyline(rutaRegreso, { color: '#0c4383', weight: 4, opacity: 0.75 }).addTo(map);
 
 
 // ── 7. ANIMACIÓN DE LOS BUSES ────────────────────────────────────────────────
