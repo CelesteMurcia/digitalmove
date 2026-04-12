@@ -1,5 +1,11 @@
+/* =============================================
+   style.css
+   Pantalla de bienvenida + carga en card
+   Digital Move
+============================================= */
+
 :root {
-  --gray-bg:      #e4e4e4;   /* gris del fondo de la captura */
+  --gray-bg:      #e4e4e4;
   --blue:         #1565C0;
   --blue-light:   #1E88E5;
   --white:        #FFFFFF;
@@ -24,7 +30,7 @@
 
 html, body {
   width: 100%; height: 100%;
-  background: #9E9E9E; /* gris fuera del teléfono (solo en desktop) */
+  background: #9E9E9E;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,7 +38,6 @@ html, body {
 }
 
 /* ===== CONTENEDOR TIPO TELÉFONO ===== */
-/* En celular real ocupa todo. En desktop se ve como mockup */
 .phone-screen {
   width: 100%;
   max-width: 390px;
@@ -42,14 +47,10 @@ html, body {
   overflow: hidden;
   position: relative;
   background: var(--gray-bg);
-
-  /* Sombra tipo teléfono cuando se ve en desktop */
   box-shadow: 0 24px 80px rgba(0,0,0,0.35);
 }
 
-/* =============================================
-   ZONA SUPERIOR (fondo gris + logo + nombre)
-============================================= */
+/* ===== ZONA SUPERIOR ===== */
 .top-section {
   flex: 1;
   background: var(--gray-bg);
@@ -61,7 +62,6 @@ html, body {
   gap: 0;
 }
 
-/* ===== LOGO CIRCULAR ===== */
 .logo-wrap {
   position: relative;
   margin-bottom: 1.6rem;
@@ -77,55 +77,34 @@ html, body {
   width: 190px;
   height: 190px;
   border-radius: 50%;
-
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  /* Borde sutil gris claro como en el diseño */
   box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.10),
-    0 2px 6px rgba(0, 0, 0, 0.20);
+    0 8px 24px rgba(0,0,0,0.10),
+    0 2px 6px rgba(0,0,0,0.20);
 }
 
-.bus-svg {
-  width: 155px;
-  height: auto;
-  margin-top: 10px; /* centra visualmente el bus dentro del círculo */
+/* Pulso azul durante la carga */
+.logo-circle.pulso-activo {
+  animation: pulsoLogo 1.8s ease-in-out infinite;
 }
 
-/* Pin de ubicación – esquina superior derecha del círculo */
-.pin-badge {
-  position: absolute;
-  top: 8px;
-  right: 8px;
+@keyframes pulsoLogo {
+  0%, 100% {
+    box-shadow:
+      0 8px 24px rgba(0,0,0,0.10),
+      0 2px 6px rgba(0,0,0,0.20);
+  }
+  50% {
+    box-shadow:
+      0 8px 32px rgba(21,101,192,0.40),
+      0 2px 14px rgba(30,136,229,0.25),
+      0 0 40px 10px rgba(21,101,192,0.20);
+  }
 }
 
-.word-digital {
-    font-family: var(--font-display);
-  font-size: 3.2rem;
-  font-weight: 700;
-  color: var(--blue);
-  letter-spacing: 4px;
-  text-shadow: 2px 2px 0px rgba(255,255,255,0.8), -1px -1px 0 rgba(0,0,0,0.05);
-}
-
-.word-move {
-  font-family: var(--font-display);
-  font-size: 3.2rem;
-  font-weight: 700;
-  color: #0D47A1;
-  letter-spacing: 4px;
-  /* Fallback universal sin -webkit, compatible con todos los navegadores */
-  background: linear-gradient(135deg, #0D47A1 30%, #1E88E5 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  /* Fallback por si background-clip no es soportado */
-  color: #0D47A1;
-}
-
-/* ===== TAGLINE ===== */
 .tagline {
   font-family: var(--font-body);
   font-style: italic;
@@ -136,6 +115,14 @@ html, body {
   animation: textoEntrada 0.6s ease 0.35s both;
 }
 
+@keyframes textoEntrada {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+
+
+
+/* ===== ZONA INFERIOR ===== */
 .bottom-section {
   padding: 1.5rem 1.5rem 2.5rem;
   display: flex;
@@ -143,27 +130,57 @@ html, body {
   margin-top: 2rem;
 }
 
-/* ===== TARJETA BLANCA ===== */
+/* ===== CARD ===== */
 .card {
   background: #b4b4b4;
   border-radius: 18px;
   width: 100%;
-  max-width: 100%;
   padding: 2.5rem 1.5rem 1.8rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.2rem;
-  /* Sombra suave igual al diseño */
   box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.20),
-    0 2px 6px rgba(0, 0, 10, 0.40);
+    0 8px 24px rgba(0,0,0,0.20),
+    0 2px 6px rgba(0,0,10,0.40);
   animation: cardEntrada 0.5s ease 0.4s both;
+  /* Altura mínima para que no salte al cambiar de vista */
+  min-height: 160px;
 }
 
 @keyframes cardEntrada {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Vista de bienvenida */
+#vista-bienvenida {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  width: 100%;
+  transition: opacity 0.3s ease;
+}
+
+/* Vista de carga */
+.vista-carga {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  animation: fadeIn 0.35s ease both;
+}
+
+/* Ocultar/mostrar vistas */
+.oculto {
+  display: none !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0);   }
 }
 
 .card-text {
@@ -181,7 +198,7 @@ html, body {
 /* ===== BOTÓN CONTINUAR ===== */
 .btn-continuar {
   width: 100%;
-  background: linear-gradient(135deg, #5C6BC0, #7986CB); /* violeta-azul como en el diseño */
+  background: linear-gradient(135deg, #5C6BC0, #7986CB);
   color: var(--white);
   border: none;
   border-radius: 50px;
@@ -198,17 +215,152 @@ html, body {
 .btn-continuar:hover {
   background: linear-gradient(135deg, #3F51B5, #5C6BC0);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(92,107,192,0.45);
 }
 
 .btn-continuar:active {
   transform: scale(0.97);
-  box-shadow: 0 2px 8px rgba(92,107,192,0.3);
 }
 
+
 /* =============================================
-   RESPONSIVE – En celular real ocupa todo
+   BARRA DE PROGRESO CON AUTOBÚS
 ============================================= */
+
+/* Texto de estado */
+.loading-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  text-align: center;
+  transition: opacity 0.3s ease;
+  min-height: 1.1rem;
+}
+
+/* Contenedor barra + autobús */
+.progress-scene {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Carril del autobús */
+.bus-track {
+  width: 100%;
+  height: 44px;
+  position: relative;
+}
+
+/* Autobús que avanza */
+.bus-on-bar {
+  position: absolute;
+  bottom: 2px;
+  left: 0%;
+  transform: translateX(-50%);
+  transition: left 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bus-on-bar img {
+  width: 70px;
+  height: auto;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));
+  animation: busBounce 0.45s ease-in-out infinite;
+}
+
+@keyframes busBounce {
+  0%, 100% { transform: translateY(0);    }
+  50%       { transform: translateY(-3px); }
+}
+
+/* Humo del escape */
+.bus-exhaust {
+  position: absolute;
+  left: -2px;
+  bottom: 20px;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2px;
+  align-items: center;
+  pointer-events: none;
+}
+
+.bus-exhaust span {
+  display: block;
+  border-radius: 50%;
+  background: rgba(100,100,100,0.4);
+  animation: smokeRise 1s ease-out infinite;
+}
+
+.bus-exhaust span:nth-child(1) { width: 5px; height: 5px; animation-delay: 0s;    }
+.bus-exhaust span:nth-child(2) { width: 7px; height: 7px; animation-delay: 0.33s; }
+.bus-exhaust span:nth-child(3) { width: 4px; height: 4px; animation-delay: 0.66s; }
+
+@keyframes smokeRise {
+  0%   { opacity: 0.6; transform: translateY(0)     scale(1);   }
+  100% { opacity: 0;   transform: translateY(-12px)  scale(1.5); }
+}
+
+/* Barra de progreso */
+.progress-track {
+  width: 100%;
+  height: 10px;
+  background: rgba(21,101,192,0.15);
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #0D47A1, #1565C0, #42A5F5);
+  background-size: 200% 100%;
+  border-radius: 50px;
+  transition: width 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 6px rgba(21,101,192,0.4);
+  position: relative;
+  animation: barShimmer 2s linear infinite;
+}
+
+@keyframes barShimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -60%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+  animation: barShine 1.6s ease-in-out infinite;
+}
+
+@keyframes barShine {
+  0%   { left: -60%; }
+  100% { left: 120%; }
+}
+
+/* Porcentaje */
+.progress-pct {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: 1px;
+  text-align: center;
+  transition: color 0.4s ease;
+}
+
+.progress-pct.completo {
+  color: var(--blue-light);
+}
+
+
+/* ===== RESPONSIVE MÓVIL ===== */
 @media (max-width: 430px) {
   body {
     background: var(--gray-bg);
@@ -216,7 +368,7 @@ html, body {
   }
   .phone-screen {
     max-width: 100%;
-    min-height: 100dvh; /* dynamic viewport height */
+    min-height: 100dvh;
     box-shadow: none;
   }
 }
