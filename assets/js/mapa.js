@@ -18,6 +18,14 @@ const centroInicial = (gpsActivo && !isNaN(userLat))
 
 const map = L.map('map').setView(centroInicial, 14);
 
+// Limitar el mapa a la zona de Apodaca
+map.setMinZoom(11);
+map.setMaxZoom(18);
+map.setMaxBounds([
+  [25.50, -100.60],  // esquina suroeste
+  [26.10, -99.80]   // esquina noreste
+]);
+
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap'
 }).addTo(map);
@@ -192,24 +200,67 @@ let busMarker  = L.marker(rutaBus[paso],  { icon: busIcon }).addTo(map);
 let busMarker2 = L.marker(rutaBus[paso2], { icon: busIcon }).addTo(map);
 let busMarker3 = L.marker(rutaBus[paso3], { icon: busIcon }).addTo(map);
 
+// ── ÍNDICES DE PARADAS EN LA RUTA ────────────────────────────────────────────
+const indicesParadas = [0, 20, 45, 70, 95, 120, 145];
+
+function calcularTiempoProximaParada(pasoActual) {
+  for (let i = 0; i < indicesParadas.length; i++) {
+    if (pasoActual < indicesParadas[i]) {
+      const pasosFaltantes = indicesParadas[i] - pasoActual;
+      const minutos = Math.max(1, Math.round(pasosFaltantes * 1500 / 60000));
+      return minutos;
+    }
+  }
+  const pasosFaltantes = rutaBus.length - pasoActual + indicesParadas[0];
+  return Math.max(1, Math.round(pasosFaltantes * 1500 / 60000));
+}
+
+// Ocupación inicial de cada unidad
+let ocup1 = 28;
+let ocup2 = 35;
+let ocup3 = 15;
+
 setInterval(() => {
-  paso++;
-  if (paso >= rutaBus.length) paso = 0;
+  paso++;  if (paso  >= rutaBus.length) paso  = 0;
+  paso2++; if (paso2 >= rutaBus.length) paso2 = 0;
+  paso3++; if (paso3 >= rutaBus.length) paso3 = 0;
+
   busMarker.setLatLng(rutaBus[paso]);
-}, 1500);
-
-setInterval(() => {
-  paso2++;
-  if (paso2 >= rutaBus.length) paso2 = 0;
   busMarker2.setLatLng(rutaBus[paso2]);
-}, 1500);
-
-setInterval(() => {
-  paso3++;
-  if (paso3 >= rutaBus.length) paso3 = 0;
   busMarker3.setLatLng(rutaBus[paso3]);
-}, 1500);
 
+  // Actualizar tiempos en las cards
+  const t1 = calcularTiempoProximaParada(paso);
+  const t2 = calcularTiempoProximaParada(paso2);
+  const t3 = calcularTiempoProximaParada(paso3);
+
+  const tiempos = document.querySelectorAll('.card-parada-tiempo');
+  if (tiempos[0]) tiempos[0].innerHTML = `<i class="fa-regular fa-clock" style="color:#E53935;"></i> Próxima parada: ${t1} min.`;
+  if (tiempos[1]) tiempos[1].innerHTML = `<i class="fa-regular fa-clock" style="color:#E53935;"></i> Próxima parada: ${t2} min.`;
+  if (tiempos[2]) tiempos[2].innerHTML = `<i class="fa-regular fa-clock" style="color:#E53935;"></i> Próxima parada: ${t3} min.`;
+
+  // Simular cambio de ocupación solo al pasar por una parada
+  if (indicesParadas.includes(paso)) {
+  ocup1 = Math.min(50, Math.max(0, ocup1 + Math.floor(Math.random() * 7 - 3)));
+  }
+  if (indicesParadas.includes(paso2)) {
+  ocup2 = Math.min(50, Math.max(0, ocup2 + Math.floor(Math.random() * 7 - 3)));
+  }
+  if (indicesParadas.includes(paso3)) {
+  ocup3 = Math.min(50, Math.max(0, ocup3 + Math.floor(Math.random() * 7 - 3)));
+  }
+
+  const barras = document.querySelectorAll('.progress div');
+  const capacidades = document.querySelectorAll('.card-capacidad');
+
+  if (barras[0]) barras[0].style.width = `${(ocup1 / 50) * 100}%`;
+  if (barras[1]) barras[1].style.width = `${(ocup2 / 50) * 100}%`;
+  if (barras[2]) barras[2].style.width = `${(ocup3 / 50) * 100}%`;
+
+  if (capacidades[0]) capacidades[0].textContent = `${ocup1} / 50`;
+  if (capacidades[1]) capacidades[1].textContent = `${ocup2} / 50`;
+  if (capacidades[2]) capacidades[2].textContent = `${ocup3} / 50`;
+}, 1500);
 
 // ── 8. PANELES — NOTIFICACIONES Y AVISOS ─────────────────────────────────────
 function abrirNotificaciones() {
@@ -240,8 +291,12 @@ function verUnidad(num) {
   if (num === 2) pos = rutaBus[paso2];
   if (num === 3) pos = rutaBus[paso3];
   map.flyTo(pos, 17, { duration: 1.2 });
-}
 
+  // Resaltar card activa
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('activa'));
+  const cards = document.querySelectorAll('.card');
+  if (cards[num - 1]) cards[num - 1].classList.add('activa');
+}
 
 // ── 10. NAVEGACIÓN POR ÍCONOS ────────────────────────────────────────────────
 function irA(tipo) {
@@ -252,34 +307,52 @@ function irA(tipo) {
     map.flyTo([25.80045, -100.13580], 17, { duration: 1.2 });
   }
   if (tipo === 'paradas') {
-    map.flyTo([25.7880, -100.1650], 14, { duration: 1.2 });
+  const bounds = L.latLngBounds(rutaBus);
+  map.flyToBounds(bounds, { padding: [40, 40], duration: 1.2 });
   }
   if (tipo === 'unidades') {
     map.flyTo(rutaBus[paso], 16, { duration: 1.2 });
   }
 }
 
+// Ir a mi ubicación
+function irAMiUbicacion() {
+  if (gpsActivo && !isNaN(userLat)) {
+    map.flyTo([userLat, userLng], 17, { duration: 1.2 });
+  } else {
+    mostrarProximamente('Ubicación no disponible');
+  }
+}
 
 // ── 11. TOAST "PRÓXIMAMENTE" (BUG-008) ───────────────────────────────────────
 function mostrarProximamente(nombre) {
   const toast = document.createElement('div');
-  toast.textContent = `🚧 ${nombre}: próximamente`;
+  toast.innerHTML = `
+    <i class="fa-solid fa-car-burst" style="font-size:14px;"></i>
+    <span>Accidentes: Ninguno reportado</span>
+  `;
   toast.style.cssText = `
     position: fixed;
     bottom: 48vh;
     left: 50%;
     transform: translateX(-50%);
-    background: #1A1A2E;
-    color: white;
-    padding: 10px 20px;
+    background: #ffffff;
+    color: #1A1A2E;
+    border: 1.5px solid #1565C0;
     border-radius: 20px;
+    padding: 10px 18px;
     font-size: 13px;
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
     z-index: 9999;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
     opacity: 0;
     transition: opacity 0.3s ease;
+    white-space: nowrap;
   `;
+  toast.querySelector('i').style.color = '#1565C0';
   document.body.appendChild(toast);
   requestAnimationFrame(() => toast.style.opacity = '1');
   setTimeout(() => {
