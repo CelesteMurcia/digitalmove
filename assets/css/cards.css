@@ -226,6 +226,21 @@
   color: #333;
 }
 
+.bottom-sheet {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 390px;
+    width: 100%;
+    z-index: 10;
+  }
+
+.card.activa {
+  border: 2px solid #cdcdcd;
+  box-shadow: 0 6px 16px rgba(116, 123, 132, 0.25);
+}
+
 /* ── RESPONSIVE DESKTOP ── */
 @media (min-width: 431px) {
   .map-container {
@@ -236,15 +251,5 @@
     max-width: 390px;
     bottom: 45vh;
     width: 100%;
-  }
-
-  .bottom-sheet {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    max-width: 390px;
-    width: 100%;
-    z-index: 10;
   }
 }
