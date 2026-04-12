@@ -85,7 +85,7 @@ const respuestas = {
       <ul>
         <li><i class="fa-solid fa-envelope"></i> digitalmove_oficial@gmail.com</li>
         <li><i class="fa-brands fa-facebook" style="color:#1565C0;"></i> Facebook: <strong>Digital Move</strong></li>
-        <li><i class="fa-brands fa-instagram" style="color:#C2185B;"></i> Instagram: <strong>@digitalmove_st</strong></li>
+        <li><i class="fa-brands fa-instagram" style="color:#C2185B;"></i> Instagram: <strong>@digitalmove_official</strong></li>
       </ul>`
   }
 };
