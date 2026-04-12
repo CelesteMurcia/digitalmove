@@ -105,10 +105,3 @@
     right: calc(50% - 390px/2 + 14px);
   }
 }
-@media (min-width: 431px) {
-  .map-container {
-    left: 50%;
-    transform: translateX(-50%);
-    max-width: 390px;
-  }
-}
