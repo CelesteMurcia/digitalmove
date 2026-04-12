@@ -14,45 +14,121 @@
 
   <div class="phone-screen">
 
-    <!-- Zona gris superior -->
+    <!-- Zona superior -->
     <div class="top-section">
-
-      <!-- Logo circular -->
       <div class="logo-wrap">
         <div class="logo-circle">
           <img src="imagenes/logo_inicial.png" alt="DigitalMove" class="logo-img">
         </div>
       </div>
-
-      <!-- Tagline -->
       <p class="tagline">VIAJA SEGURO, LLEGA SIN APURO</p>
-
     </div>
 
-    <!-- Zona inferior con tarjeta -->
+    <!-- Zona inferior — card -->
     <div class="bottom-section">
       <div class="card">
-        <p class="card-text">
-          Pulsa <strong>"Continuar"</strong> para aceptar los
-          términos y permitir tu ubicación.
-        </p>
 
-        <!--
-          onclick llama a pedirUbicacion() que está en geolocalizacion.js
-          ESA función es la que muestra el popup de permiso GPS
-          y luego redirige a pagina1.html
-        -->
-        <button class="btn-continuar" onclick="pedirUbicacion()">
-          Continuar
-        </button>
+        <!-- Vista 1: texto + botón -->
+        <div id="vista-bienvenida">
+          <p class="card-text">
+            Pulsa <strong>"Continuar"</strong> para aceptar los
+            términos y permitir tu ubicación.
+          </p>
+          <button class="btn-continuar" onclick="pedirUbicacion()">
+            Continuar
+          </button>
+        </div>
+
+        <!-- Vista 2: carga (oculta por defecto) -->
+        <div id="vista-carga" class="vista-carga oculto">
+
+          <p class="loading-label" id="loading-label">
+            Obteniendo ubicación...
+          </p>
+
+          <!-- Autobús sobre la barra -->
+          <div class="progress-scene">
+            <div class="bus-track">
+              <div class="bus-on-bar" id="bus-on-bar">
+                <div class="bus-exhaust">
+                  <span></span><span></span><span></span>
+                </div>
+                <img src="imagenes/microbusito.png" alt="Bus">
+              </div>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+          </div>
+
+          <p class="progress-pct" id="progress-pct">0%</p>
+
+        </div>
 
       </div>
     </div>
 
   </div>
 
-  <!-- Conectar geolocalizacion.js al final del body -->
-  <script src="geolocalizacion.js"></script>
+  <script>
+    const mensajes = [
+      'Obteniendo ubicación...',
+      'Cargando rutas disponibles...',
+      'Preparando el mapa...',
+      'Casi listo...'
+    ];
+
+    const etapas = [20, 45, 70, 90];
+    let etapaIdx = 0;
+
+    function setProgreso(valor) {
+      document.getElementById('progress-fill').style.width = valor + '%';
+      document.getElementById('progress-pct').textContent  = valor + '%';
+      const pos = Math.min(Math.max(valor, 4), 93);
+      document.getElementById('bus-on-bar').style.left = pos + '%';
+    }
+
+    window._onGpsListo = function() {
+      clearInterval(window._etapaInterval);
+      setProgreso(100);
+      document.getElementById('progress-pct').classList.add('completo');
+
+      const label = document.getElementById('loading-label');
+      label.style.opacity = '0';
+      setTimeout(() => {
+        label.textContent = '¡Todo listo!';
+        label.style.opacity = '1';
+      }, 300);
+
+      setTimeout(() => {
+        window.location.href = 'pagina1.html';
+      }, 900);
+    };
+
+    // Esta función se llama desde geolocalizacion.js antes de pedir GPS
+    window._iniciarAnimacion = function() {
+      // Cambiar vista dentro de la card
+      document.getElementById('vista-bienvenida').classList.add('oculto');
+      document.getElementById('vista-carga').classList.remove('oculto');
+
+      document.querySelector('.logo-circle').classList.add('pulso-activo');
+
+      setProgreso(0);
+
+      window._etapaInterval = setInterval(() => {
+        if (etapaIdx < etapas.length) {
+          setProgreso(etapas[etapaIdx]);
+          const label = document.getElementById('loading-label');
+          label.style.opacity = '0';
+          setTimeout(() => {
+            label.textContent = mensajes[etapaIdx + 1] || mensajes[etapaIdx];
+            label.style.opacity = '1';
+          }, 300);
+          etapaIdx++;
+        }
+      }, 1200);
+    };
+  </script>
 
 </body>
 </html>
