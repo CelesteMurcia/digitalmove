@@ -11,11 +11,19 @@
   <link rel="stylesheet" href="assets/css/mapa.css">  
   <link rel="stylesheet" href="assets/css/cards.css">
   <link rel="stylesheet" href="assets/css/chatbot.css">
-  <link rel="stylesheet" href="assets/css/notificaciones.css">      
+  <link rel="stylesheet" href="assets/css/notificaciones.css"> 
+  <link rel="stylesheet" href="assets/css/bloqueo.css">     
 </head>
 
 <body>
 
+  <div id="bloqueo-desktop">
+  <img src="imagenes/logo_inicial.png" alt="Digital Move" style="width:120px; margin-bottom:1.5rem;">
+  <i class="fa-solid fa-mobile-screen" style="font-size:3rem; color:#1565C0; margin-bottom:1rem;"></i>
+  <h2>Disponible solo en móvil</h2>
+  <p>Esta aplicación está diseñada para usarse desde un teléfono o tableta. Por favor accede desde tu dispositivo móvil.</p>
+  </div>
+  
   <header class="app-header">
     <img src="imagenes/logo_header.png" class="logo">
     <div class="icons">
@@ -107,13 +115,24 @@
   ══════════════════════════════════════ -->
   <main class="map-container">
     <div id="map"></div>
-  </main>
+
+     <!-- Botones flotantes sobre el mapa -->
+  <div class="map-float-btns">
+    <button class="map-float-btn btn-mi-ubicacion" onclick="irAMiUbicacion()" title="Mi ubicación">
+      <i class="fa-solid fa-location-crosshairs"></i>
+    </button>
+    <button class="map-float-btn btn-ver-ruta" onclick="irA('paradas')" title="Ver ruta">
+      <i class="fa-solid fa-route"></i>
+    </button>
+  </div>
+</main>
  
  
   <!-- ══════════════════════════════════════
        PANEL INFERIOR
   ══════════════════════════════════════ -->
   <section class="bottom-sheet">
+    <div class="drawer-handle" id="drawer-handle"></div>
  
     <!-- Barra de navegación rápida -->
     <nav class="nav-bar">
@@ -189,7 +208,7 @@
         </p>
         <p class="card-parada-nombre">
           <i class="fa-solid fa-location-dot" style="color:#1565C0;"></i>
-          Parada: Parque Silva
+          Parada: Parque Stiva
         </p>
       </div>
     </div>
@@ -210,7 +229,7 @@
         </p>
         <p class="card-parada-nombre">
           <i class="fa-solid fa-location-dot" style="color:#1565C0;"></i>
-          Parada: Centro comercial
+          Parada: Destino
         </p>
       </div>
     </div>
