@@ -1,7 +1,7 @@
 // =============================================
 //  geolocalizacion.js
 //  Lógica de geolocalización — Digital Move
-// =============================================
+// ============================================
 
 function pedirUbicacion() {
   // Activar animación dentro de la card
