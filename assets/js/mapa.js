@@ -215,21 +215,72 @@ function calcularTiempoProximaParada(pasoActual) {
   return Math.max(1, Math.round(pasosFaltantes * 1500 / 60000));
 }
 
-// Ocupación inicial de cada unidad
+
+// ── 7. ANIMACIÓN DE LOS BUSES ────────────────────────────────────────────────
+function interpolar(from, to, t) {
+  return [
+    from[0] + (to[0] - from[0]) * t,
+    from[1] + (to[1] - from[1]) * t
+  ];
+}
+
+function moverBusSuave(marker, ruta, pasoRef, callback) {
+  const desde = ruta[pasoRef];
+  const hasta = ruta[(pasoRef + 1) % ruta.length];
+  const duracion = 1500;
+  const inicio = performance.now();
+
+  function animar(ahora) {
+    const t = Math.min((ahora - inicio) / duracion, 1);
+    marker.setLatLng(interpolar(desde, hasta, t));
+    if (t < 1) {
+      requestAnimationFrame(animar);
+    } else {
+      callback();
+    }
+  }
+
+  requestAnimationFrame(animar);
+}
+
 let ocup1 = 28;
 let ocup2 = 35;
 let ocup3 = 15;
 
-setInterval(() => {
-  paso++;  if (paso  >= rutaBus.length) paso  = 0;
-  paso2++; if (paso2 >= rutaBus.length) paso2 = 0;
-  paso3++; if (paso3 >= rutaBus.length) paso3 = 0;
+function tickBus1() {
+  moverBusSuave(busMarker, rutaBus, paso, () => {
+    paso = (paso + 1) % rutaBus.length;
+    if (indicesParadas.includes(paso)) {
+      ocup1 = Math.min(50, Math.max(0, ocup1 + Math.floor(Math.random() * 7 - 3)));
+    }
+    actualizarCards();
+    tickBus1();
+  });
+}
 
-  busMarker.setLatLng(rutaBus[paso]);
-  busMarker2.setLatLng(rutaBus[paso2]);
-  busMarker3.setLatLng(rutaBus[paso3]);
+function tickBus2() {
+  moverBusSuave(busMarker2, rutaBus, paso2, () => {
+    paso2 = (paso2 + 1) % rutaBus.length;
+    if (indicesParadas.includes(paso2)) {
+      ocup2 = Math.min(50, Math.max(0, ocup2 + Math.floor(Math.random() * 7 - 3)));
+    }
+    actualizarCards();
+    tickBus2();
+  });
+}
 
-  // Actualizar tiempos en las cards
+function tickBus3() {
+  moverBusSuave(busMarker3, rutaBus, paso3, () => {
+    paso3 = (paso3 + 1) % rutaBus.length;
+    if (indicesParadas.includes(paso3)) {
+      ocup3 = Math.min(50, Math.max(0, ocup3 + Math.floor(Math.random() * 7 - 3)));
+    }
+    actualizarCards();
+    tickBus3();
+  });
+}
+
+function actualizarCards() {
   const t1 = calcularTiempoProximaParada(paso);
   const t2 = calcularTiempoProximaParada(paso2);
   const t3 = calcularTiempoProximaParada(paso3);
@@ -239,28 +290,19 @@ setInterval(() => {
   if (tiempos[1]) tiempos[1].innerHTML = `<i class="fa-regular fa-clock" style="color:#E53935;"></i> Próxima parada: ${t2} min.`;
   if (tiempos[2]) tiempos[2].innerHTML = `<i class="fa-regular fa-clock" style="color:#E53935;"></i> Próxima parada: ${t3} min.`;
 
-  // Simular cambio de ocupación solo al pasar por una parada
-  if (indicesParadas.includes(paso)) {
-  ocup1 = Math.min(50, Math.max(0, ocup1 + Math.floor(Math.random() * 7 - 3)));
-  }
-  if (indicesParadas.includes(paso2)) {
-  ocup2 = Math.min(50, Math.max(0, ocup2 + Math.floor(Math.random() * 7 - 3)));
-  }
-  if (indicesParadas.includes(paso3)) {
-  ocup3 = Math.min(50, Math.max(0, ocup3 + Math.floor(Math.random() * 7 - 3)));
-  }
-
   const barras = document.querySelectorAll('.progress div');
   const capacidades = document.querySelectorAll('.card-capacidad');
-
   if (barras[0]) barras[0].style.width = `${(ocup1 / 50) * 100}%`;
   if (barras[1]) barras[1].style.width = `${(ocup2 / 50) * 100}%`;
   if (barras[2]) barras[2].style.width = `${(ocup3 / 50) * 100}%`;
-
   if (capacidades[0]) capacidades[0].textContent = `${ocup1} / 50`;
   if (capacidades[1]) capacidades[1].textContent = `${ocup2} / 50`;
   if (capacidades[2]) capacidades[2].textContent = `${ocup3} / 50`;
-}, 1500);
+}
+
+tickBus1();
+tickBus2();
+tickBus3();
 
 // ── 8. PANELES — NOTIFICACIONES Y AVISOS ─────────────────────────────────────
 function abrirNotificaciones() {
@@ -360,3 +402,4 @@ function mostrarProximamente(nombre) {
     setTimeout(() => toast.remove(), 300);
   }, 2500);
 }
+
