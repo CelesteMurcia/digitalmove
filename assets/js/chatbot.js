@@ -47,8 +47,8 @@ const respuestas = {
     pregunta: '¿Cuál es el horario de servicio?',
     texto: `El servicio opera en dos turnos:<br><br>
       <ul>
-        <li><i class="fa-solid fa-sun"></i> <strong>Matutino:</strong> 5:30 a.m. y 7:00 a.m.</li>
-        <li><i class="fa-solid fa-cloud-sun"></i> <strong>Vespertino:</strong> 1:00 p.m. y 2:00 p.m.</li>
+        <li><i class="fa-solid fa-sun"></i> <strong>Matutino:</strong> 5:30 a.m. a 7:00 a.m.</li>
+        <li><i class="fa-solid fa-cloud-sun"></i> <strong>Vespertino:</strong> 1:00 p.m. a 2:00 p.m.</li>
       </ul>`
   },
   caracteristicas: {
