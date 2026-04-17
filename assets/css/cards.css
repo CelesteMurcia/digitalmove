@@ -1,1 +1,366 @@
+.bottom-sheet {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #f4f4f4;
+  border-radius: 20px 20px 0 0;
+  padding: 16px;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+  height: 45vh;
+  overflow-y: auto;
+  z-index: 10;
+}
 
+.bottom-sheet h3 {
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+
+/* ── BARRA DE NAVEGACIÓN ── */
+.nav-bar {
+  width: 100%;
+  background: #ffffff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 12px 0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 16px;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #555;
+  cursor: pointer;
+}
+
+.nav-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eeeeee;
+}
+
+.nav-icon i { font-size: 16px; }
+.red i      { color: #E53935; }
+.green i    { color: #43A047; }
+.blue i     { color: #1565C0; }
+.gray i     { color: #757575; }
+.dark i     { color: #424242; }
+
+
+/* ── CARDS DE UNIDADES ── */
+.card {
+  background: #e8e8e8;
+  border-radius: 18px;
+  padding: 10px 8px;
+  margin-bottom: 14px;
+  box-shadow: 0 6px 8px rgba(0,0,0,0.3);
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  transition: 0.2s ease;
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.card-bus-img {
+  width: 95px;
+  height: auto;
+  object-fit: contain;
+  transform: scale(1.2);
+}
+
+.card-nombre {
+  background: #CFCFCF;
+  padding: 6px 50px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 13px;
+  color: #1A1A2E;
+}
+
+.card-capacidad {
+  text-align: center;
+  font-size: 12px;
+  color: #555;
+  margin: 4px 0 14px;
+}
+
+.progress {
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 10px;
+  margin: 6px 0;
+  overflow: hidden;
+}
+
+.progress div {
+  height: 100%;
+  background: linear-gradient(90deg, #4b88ff, #1565C0);
+  border-radius: 10px;
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.card-parada-tiempo,
+.card-parada-nombre {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #454343;
+  margin: 0;
+}
+
+.card-parada-tiempo i {
+  font-size: 14px;
+}
+
+
+/* ── HORARIO DE SERVICIO ── */
+.schedule h3 {
+  font-size: 14px;
+  margin: 14px 0 15px;
+  color: #1A1A2E;
+}
+
+.schedule-box {
+  background: #e0e0e0;
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.schedule-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 13px;
+  flex: 1;
+}
+
+.schedule-col strong {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1A1A2E;
+  margin-bottom: 2px;
+}
+
+.horario-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #333;
+}
+
+.circulo {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #454545;
+  flex-shrink: 0;
+}
+
+.divider {
+  width: 1px;
+  background: #bdbdbd;
+  margin: 0 14px;
+}
+
+
+/* ── CARACTERÍSTICAS ── */
+.features h3 {
+  font-size: 14px;
+  margin: 14px 0 16px;
+  color: #1A1A2E;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 4px;
+  gap: 20px 12px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #333;
+}
+
+.feature-item i {
+  font-size: 1rem;
+  color: #1A1A2E;
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.feature-item span {
+  font-size: 11px;
+  color: #333;
+}
+
+.bottom-sheet {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 390px;
+    width: 100%;
+    z-index: 10;
+  }
+
+.card.activa {
+  border: 2px solid #cdcdcd;
+  box-shadow: 0 6px 16px rgba(116, 123, 132, 0.25);
+}
+
+/* ── RESPONSIVE DESKTOP ── */
+@media (min-width: 431px) {
+  .map-container {
+    position: fixed;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 390px;
+    bottom: 45vh;
+    width: 100%;
+  }
+}
+
+/* ════════════════════════════════════════════════
+   ODS — Objetivos de Desarrollo Sostenible
+   Pegar al final de assets/css/cards.css
+════════════════════════════════════════════════ */
+
+.ods-section {
+  margin-top: 20px;
+  padding: 16px;
+  background: #f0f4ff;
+  border-radius: 16px;
+  border: 1.5px solid #dde3f5;
+}
+
+.ods-titulo {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1A1A2E;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.ods-titulo i {
+  color: #2e7d32;
+  font-size: 15px;
+}
+
+.ods-descripcion {
+  font-size: 12px;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.ods-badges {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.ods-badge {
+  border-radius: 12px;
+  padding: 10px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  text-align: center;
+  min-height: 44px;
+}
+
+.ods-numero {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.ods-texto {
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* Colores oficiales ODS */
+
+.ods-11 { background: #D8EDD8; border: 1.5px solid #3F7E44; }
+.ods-11 .ods-numero { color: #1B4F20; }
+.ods-11 .ods-texto  { color: #1B4F20; }
+
+.ods-4 { background: #FCE4EC; border: 1.5px solid #DD1367; }
+.ods-4 .ods-numero { color: #880E4F; }
+.ods-4 .ods-texto  { color: #880E4F; }
+
+.ods-impacto {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid #dde3f5;
+  padding-top: 12px;
+}
+
+.ods-stat {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  color: #333;
+  line-height: 1.4;
+}
+
+.ods-stat i {
+  color: #1565C0;
+  font-size: 14px;
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.ods-stat strong {
+  color: #1A1A2E;
+}
+
+/* Accesibilidad — nav-item tap target */
+.nav-item {
+  min-height: 44px;
+  min-width: 44px;
+  justify-content: center;
+}
