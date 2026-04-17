@@ -25,7 +25,7 @@
   </div>
   
   <header class="app-header">
-    <img src="imagenes/logo_header.png" class="logo">
+    <img src="imagenes/logo_header.png" class="logo" alt="DigitalMove - Transporte universitario">
     <div class="icons">
       <i class="fa-regular fa-bell"        onclick="abrirNotificaciones()"></i>
       <i class="fa-solid fa-circle-info"   onclick="abrirAvisos()"></i>
@@ -127,14 +127,11 @@
   </div>
 </main>
  
- 
-  <!-- ══════════════════════════════════════
-       PANEL INFERIOR
-  ══════════════════════════════════════ -->
+
   <section class="bottom-sheet">
     <div class="drawer-handle" id="drawer-handle"></div>
  
-    <!-- Barra de navegación rápida -->
+
     <nav class="nav-bar">
       <div class="nav-item" onclick="irA('origen')">
         <div class="nav-icon red">
@@ -173,7 +170,7 @@
     <!-- ── CARDS DE UNIDADES ── -->
     <div class="card" onclick="verUnidad(1)">
       <div class="card-top">
-        <img src="imagenes/microbusito.png" class="card-bus-img">
+        <img src="imagenes/microbusito.png" class="card-bus-img" alt="Unidad de transporte universitario">
         <span class="card-nombre">Unidad 1</span>
       </div>
       <div class="progress">
@@ -286,6 +283,59 @@
         </div>
       </div>
     </div>
+
+    <!-- ══════════════════════════════════════
+     SECCIÓN ODS — pegar justo ANTES de
+     <footer class="app-footer">
+     dentro de <section class="bottom-sheet">
+══════════════════════════════════════ -->
+
+<div class="ods-section">
+
+  <h3 class="ods-titulo">
+    <i class="fa-solid fa-leaf" aria-hidden="true"></i>
+    Comprometidos con el desarrollo sostenible
+  </h3>
+
+  <p class="ods-descripcion">
+    Cada viaje en Digital Move contribuye a una ciudad más equitativa y limpia.
+    Al usar transporte universitario gratuito evitas, en promedio,
+    <strong>~1.2&nbsp;kg de CO₂</strong> por trayecto.
+  </p>
+
+  <!-- Badges ODS -->
+  <div class="ods-badges" role="list">
+
+    <div class="ods-badge ods-4" role="listitem">
+      <span class="ods-numero" aria-hidden="true">4</span>
+      <span class="ods-texto">Educación de calidad</span>
+    </div>
+
+    <div class="ods-badge ods-11" role="listitem">
+      <span class="ods-numero" aria-hidden="true">11</span>
+      <span class="ods-texto">Ciudades y comunidades sostenibles</span>
+    </div>
+
+  </div>
+
+  <!-- Microcopy de impacto -->
+  <div class="ods-impacto" aria-label="Datos de impacto ambiental">
+    <div class="ods-stat">
+      <i class="fa-solid fa-bus" aria-hidden="true"></i>
+      <span>Servicio <strong>100% gratuito</strong> para todos los estudiantes</span>
+    </div>
+    <div class="ods-stat">
+      <i class="fa-solid fa-wind" aria-hidden="true"></i>
+      <span>Transporte compartido = <strong>menos emisiones</strong></span>
+    </div>
+    <div class="ods-stat">
+      <i class="fa-solid fa-earth-americas" aria-hidden="true"></i>
+      <span>Apoya los ODS de la <strong>Agenda 2030</strong> de la ONU</span>
+    </div>
+  </div>
+
+</div>
+<!-- ── FIN SECCIÓN ODS ── -->
  
     <!-- ── FOOTER ── -->
     <footer class="app-footer">
@@ -299,7 +349,7 @@
       <div class="footer-divider"></div>
       <div class="footer-contacto">
         <p class="footer-titulo-seccion">Contáctanos</p>
-        <p>admin.transportes@demo.com</p>
+        <p>digitalmove_oficial@gmail.com</p>
       </div>
       <div class="footer-redes">
         <p class="footer-titulo-seccion">Síguenos en</p>
@@ -324,10 +374,8 @@
  
   </section>
   
-  <!-- Leaflet JS — siempre primero -->
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-  <!-- Scripts propios — después de Leaflet y al final del body -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="assets/js/chatbot.js"></script>
   <script src="assets/js/mapa.js"></script>
 
